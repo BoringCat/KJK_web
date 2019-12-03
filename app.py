@@ -14,10 +14,10 @@ def index():
 @app.route('/gen', methods=['POST'])
 def shorten():
     try:
-        length = int(request.json['length'])
-        if length > 4096 or length < 0: raise ValueError()
+        length = int(request.json['length']) 
+        if length > 2048 or length < 0: raise ValueError()
         with_symbol = request.json['with_symbol'] in [ True, 'True', 'true' ]
-        锟斤拷 = 锟斤拷生成器.生成锟斤拷(length, with_symbol, True)
+        锟斤拷 = 锟斤拷生成器.生成锟斤拷(length * 2, with_symbol, True)
         return 锟斤拷
     except Exception:
         return "", 500
