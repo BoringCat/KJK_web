@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>锟斤拷生成器</title>
+</head>
+
+<body style="margin: 0">
+    <div
+        style="top: 0; left: 0; right: 0; min-height: 120px; padding-bottom: 16px; border-bottom: 2px solid black; margin: auto; text-align: center; font-size: 24px">
+        <h1 style="margin-top: 0">锟斤拷生成器</h1>
+        <div>
+            <span>长度: </span>
+            <input style="font-size: 24px;" id="length" name="length" type="number" min="1" max="4096" />
+            <span>(1-4096)</span>
+            <span style="margin: 0 6px"></span>
+            <input style="font-size: 24px;" id="with_symbol" name="with_symbol" type="checkbox">包括符号</input>
+            <span style="margin: 0 6px"></span>
+            <button style="font-size: 24px;" id="submit" name="submit" type="button">生成</button>
+        </div>
+    </div>
+    <div style="margin-top: 10px">
+        <label id="gen">
+
+        </label>
+    </div>
+</body>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script>
+    (function () {
+        "use strict";
+
+        const length = $("#length");
+        const with_symbol = $("#with_symbol");
+        const gen = $("#gen");
+
+        const submitBtn = $("#submit");
+
+        var sending = false;
+
+        function submitKJK() {
+            var len = length.val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/gen',
+                data: JSON.stringify({
+                    length: len,
+                    with_symbol: with_symbol.is(":checked")
+                }),
+                contentType: "application/json",
+                success: function (data) {
+                    gen.text(data)
+                    sending = false;
+                },
+                error: function (jqXHR, status, error) {
+                    sending = false;
+                }
+            });
+        }
+
+        $(document).keypress(function (e) {
+            if (e.which === 13) {
+                submitKJK();
+            }
+        });
+
+        submitBtn.click(submitKJK);
+    })();
+</script>
+
+</html>
