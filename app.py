@@ -3,13 +3,9 @@
 from flask import Flask, send_file, request
 import os
 import asyncio
-import 锟斤拷生成器
+import kjk as 锟斤拷生成器
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
 app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return send_file('web/index.html')
 
 @app.route('/gen', methods=['POST'])
 def shorten():
