@@ -12,4 +12,4 @@ RUN set -xe\
  && for n in __pycache__/*.pyc; do mv $n `echo ${n/__pycache__\/} | sed 's/\.cpy.*\././g'`; done\
  && rm -rf __pycache__/
 
-ENTRYPOINT [ "python", "/app/app.py" ]
+ENTRYPOINT [ "python", "/app/app.pyc" ]
